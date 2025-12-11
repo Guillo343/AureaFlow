@@ -1,16 +1,30 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+
 export default function LandingPage() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <section className="flex-1 flex items-center justify-center flex-col gap-4 text-center px-4">
+    <div className="w-full min-h-screen">
+      {/* Hero section */}
+      <section className="h-screen flex items-center justify-center">
+        <h1 className="text-6xl font-bold">Welcome to AureaFlow</h1>
+      </section>
 
-        <h1 className="text-5xl font-bold">Tu dinero, bajo control</h1>
-        <p className="text-gray-600 max-w-xl">
-          Organiza tus ingresos, gastos y metas financieras desde un solo lugar.
-        </p>
-
-        <button className="mt-4 px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-900 transition">
-          Empezar ahora
-        </button>
+      {/* Content appears when scrolling */}
+      <section
+        ref={sectionRef}
+        className="h-screen flex items-center justify-center"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-3xl"
+        >
+          Smart tools for managing your money
+        </motion.div>
       </section>
     </div>
   );

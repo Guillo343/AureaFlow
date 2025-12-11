@@ -7,3 +7,42 @@ html, body {
   -webkit-font-smoothing: antialiased;
   font-optical-sizing: auto;
 }
+/* Smooth hover & transitions */
+* {
+  transition: all 0.25s ease-out;
+}
+
+/* SaaS soft shadow */
+.shadow-soft {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover scale */
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* Hover subtle lift */
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Link underline animation */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: black;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
