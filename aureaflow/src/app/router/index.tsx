@@ -1,13 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../../App";
-import Landing from "../../pages/Loading/Landing";
+import LandingPage from "../../pages/Loading/Landing";
+import Login from "../../pages/Auth/Login";
+import SignUp from "../../pages/Auth/SignUp";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "/", element: <Landing /> },
+      { index: true, element: <LandingPage /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
     ],
   },
 ]);

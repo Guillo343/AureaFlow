@@ -25,7 +25,7 @@ export default function HeroSection() {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium shadow-lg"
+        className="px-6 py-3 bg-violet-700 text-black rounded-lg font-medium shadow-lg"
       >
         Get Started
       </motion.button>
