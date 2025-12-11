@@ -9,7 +9,7 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-[#0f0f0f] to-[#181818] text-white">
+    <div className="w-full min-h-screen bg-linear-to-b from-[#0f0f0f] to-[#181818] text-white">
       {/* Hero Section */}
       <section className="h-screen flex items-center justify-center container-main">
         <motion.div

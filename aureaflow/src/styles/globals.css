@@ -76,11 +76,11 @@ html, body {
 
 /* Buttons*/
 .btn-primary {
-  @apply bg-[#4b48ff] text-white py-3 px-6 rounded-xl font-medium;
+  @apply bg-[#053225] text-white py-3 px-6 rounded-xl font-medium;
 }
 
 .btn-primary:hover {
-  background-color: #6c69ff;
+  background-color: #60A561;
 }
 
 /* Spacing */
