@@ -1,17 +1,10 @@
 export default function Navbar() {
   return (
-    <nav className="w-full py-4 px-6 flex justify-between items-center border-b">
-      <h2 className="text-xl font-bold">AureaFlow</h2>
-
-      <div className="hidden md:flex gap-6">
-        <a href="#" className="hover:text-gray-600">Inicio</a>
-        <a href="#" className="hover:text-gray-600">Características</a>
-        <a href="#" className="hover:text-gray-600">Planes</a>
+    <nav className="w-full py-4 shadow-soft hover-lift">
+      <div className="container-main flex items-center justify-between">
+        <h1 className="text-2xl font-bold hover-scale-sm">AureaFlow</h1>
+        <button className="btn-primary hover-scale-md">Log In</button>
       </div>
-
-      <button className="px-4 py-2 rounded-lg bg-black text-white">
-        Ingresar
-      </button>
     </nav>
   );
 }
