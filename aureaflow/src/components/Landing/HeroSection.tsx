@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
+  
   return (
     <section className="w-full min-h-screen flex flex-col items-center justify-center text-center px-6">
       <motion.h1 
@@ -21,7 +22,6 @@ export default function HeroSection() {
         AureaFlow helps you track income, manage expenses, set savings goals,
         and build lasting financial peace.
       </motion.p>
-
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}

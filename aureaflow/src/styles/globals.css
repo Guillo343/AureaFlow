@@ -22,58 +22,6 @@ html, body {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
-
-/* SaaS soft shadow */
-.shadow-soft {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
-}
-
-/* Hover scale */
-.hover-scale:hover {
-  transform: scale(1.03);
-}
-
-/* Hover subtle lift */
-.hover-lift:hover {
-  transform: translateY(-4px);
-}
-
-/* Link underline animation */
-.link-underline {
-  position: relative;
-}
-
-.link-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 0%;
-  height: 2px;
-  background: black;
-  transition: width 0.3s ease;
-}
-
-.link-underline:hover::after {
-  width: 100%;
-}
-.hover-scale-sm:hover {
-  transform: scale(1.03);
-}
-
-.hover-scale-md:hover {
-  transform: scale(1.07);
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-}
-
-/* Shadow */
-.shadow-soft {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-}
-
 /* Buttons*/
 .btn-primary {
   @apply bg-[#053225] text-white py-3 px-6 rounded-xl font-medium;
