@@ -1,7 +1,42 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { signUpWithEmail } from "../../lib/Auth";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSignUp(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg("");
+
+    const { data, error } = await signUpWithEmail(email, password);
+
+    if (error) {
+      setErrorMsg(error.message);
+      setLoading(false);
+      return;
+    }
+
+    const user = data.user;
+
+    // Guardamos full name en profiles
+    await supabase.from("profiles").insert({
+      id: user?.id,
+      full_name: fullName,
+    });
+
+    navigate("/dashboard");
+  }
+
   return (
     <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center px-4">
       <motion.div
@@ -17,13 +52,19 @@ export default function SignUp() {
           Start your journey with AureaFlow
         </p>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSignUp}>
+          {errorMsg && (
+            <p className="text-red-400 text-sm text-center">{errorMsg}</p>
+          )}
+
           <div>
             <label className="block text-gray-300 mb-1 text-sm font-medium">
               Full Name
             </label>
             <input
               type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
               placeholder="John Doe"
             />
@@ -35,6 +76,8 @@ export default function SignUp() {
             </label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
               placeholder="Enter your email"
             />
@@ -46,6 +89,8 @@ export default function SignUp() {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
               placeholder="Create a password"
             />
@@ -53,9 +98,10 @@ export default function SignUp() {
 
           <button
             type="submit"
-            className="w-full py-3 mt-4 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg text-white font-semibold"
+            disabled={loading}
+            className="w-full py-3 mt-4 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg text-white font-semibold disabled:opacity-50"
           >
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
 

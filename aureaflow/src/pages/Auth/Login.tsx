@@ -1,7 +1,32 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { signInWithEmail } from "../../lib/Auth";
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg("");
+
+    const { error } = await signInWithEmail(email, password);
+
+    if (error) {
+      setErrorMsg(error.message);
+      setLoading(false);
+      return;
+    }
+
+    navigate("/dashboard");
+  }
+
   return (
     <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center px-4">
       <motion.div
@@ -17,13 +42,19 @@ export default function Login() {
           Sign in to continue to AureaFlow
         </p>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleLogin}>
+          {errorMsg && (
+            <p className="text-red-400 text-sm text-center">{errorMsg}</p>
+          )}
+
           <div>
             <label className="block text-gray-300 mb-1 text-sm font-medium">
               Email
             </label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
               placeholder="Enter your email"
             />
@@ -35,6 +66,8 @@ export default function Login() {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
               placeholder="Enter your password"
             />
@@ -42,9 +75,10 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full py-3 mt-4 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg text-white font-semibold"
+            disabled={loading}
+            className="w-full py-3 mt-4 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg text-white font-semibold disabled:opacity-50"
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
 
