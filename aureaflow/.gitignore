@@ -1,3 +1,10 @@
+# env
+.env
+.env.*
+git rm --cached .env
+git rm --cached .env.*
+git commit -m "Remove env files from repo"
+
 # Logs
 logs
 *.log
