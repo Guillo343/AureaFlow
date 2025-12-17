@@ -5,7 +5,7 @@ const MotionLink = motion(Link);
 
 export default function Navbar() {
   return (
-    <header className="w-full py-4">
+    <header className="w-full py-4 ">
       <nav className="container-main flex items-center justify-between">
         {/* Logo */}
         <h1 className="text-2xl font-bold">
