@@ -9,7 +9,7 @@ export default function Goals() {
           <h3 className="text-lg font-medium mb-2">Emergency Fund</h3>
 
           <p className="text-sm text-gray-400 mb-4">
-            $1,200 / $3,000
+            $4,200 / $3,000
           </p>
 
           <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
