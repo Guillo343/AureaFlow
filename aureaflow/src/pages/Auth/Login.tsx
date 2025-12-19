@@ -1,10 +1,17 @@
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {  useState } from "react";
 import { signInWithEmail } from "../../lib/Auth";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const {user} = useAuth();
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

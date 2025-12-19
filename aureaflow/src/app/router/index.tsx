@@ -1,9 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../../App";
+
 import LandingPage from "../../pages/Loading/Landing";
 import Login from "../../pages/Auth/Login";
 import SignUp from "../../pages/Auth/SignUp";
-import DashboardPage from "../../pages/Dashboard/Dashboard";
+
+import DashboardLayout from "../../pages/Dashboard/DashboardLayout";
+import DashboardHome from "../../pages/Dashboard/DashboardHome";
+import Transactions from "../../pages/Dashboard/Transactions";
+import Goals from "../../pages/Dashboard/sections/Goals";
+
 import ProtectedRoute from "../../features/auth/ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -18,7 +24,15 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          { path: "dashboard", element: <DashboardPage /> },
+          {
+            path: "dashboard",
+            element: <DashboardLayout />,
+            children: [
+              { index: true, element: <DashboardHome /> },
+              { path: "transactions", element: <Transactions /> },
+              { path: "goals", element: <Goals /> },
+            ],
+          },
         ],
       },
     ],

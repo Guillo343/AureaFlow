@@ -3,9 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signUpWithEmail } from "../../lib/Auth";
 import { supabase } from "../../lib/supabaseClient";
+import { useAuth } from "../../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const {user} = useAuth();
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
