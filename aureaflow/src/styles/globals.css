@@ -62,3 +62,7 @@ html, body {
     display: none !important;
   }
 }
+/* index.css */
+.container-main {
+  @apply max-w-7xl mx-auto px-6;
+}
