@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export default function CTASection() {
-  const MotionLink = motion(Link);
+  const MotionLink = motion.create(Link);
   return (
     <section className="py-24 px-6 text-center bg-gray-900 text-white">
       <motion.h2
