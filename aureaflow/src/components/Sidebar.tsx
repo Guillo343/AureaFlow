@@ -1,50 +1,66 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { supabase } from "../lib/supabaseClient";
 import { useState } from "react";
+import { LayoutDashboard, ArrowLeftRight, Target, ChevronLeft, ChevronRight, LogOut} from "lucide-react";
+import { logout } from "../pages/Auth/Logout";
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
+    await logout();
+    navigate("/", { replace: true });
   };
 
   return (
     <motion.aside
       animate={{ width: collapsed ? 80 : 240 }}
       transition={{ duration: 0.25 }}
-      className="h-screen bg-[#0f0f0f] border-r border-white/10 flex flex-col"
+      className="h-screen bg-[#0f0f0f] border-r border-white/10
+                 flex flex-col justify-between"
     >
-      {/* Logo */}
-      <div className="h-16 flex items-center justify-between px-4">
-        {!collapsed && (
-          <span className="text-lg font-bold text-white">AureaFlow</span>
-        )}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="text-gray-400 hover:text-white"
-        >
-          {collapsed ? "›" : "‹"}
-        </button>
-      </div>
+      {/* Top */}
+      <div>
+        {/* Logo + Collapse */}
+        <div className="h-16 flex items-center justify-between px-4">
+          {!collapsed && (
+            <span className="text-lg font-bold text-white">AureaFlow</span>
+          )}
 
-      {/* Navigation */}
-      <nav className="flex-1 px-2 space-y-1">
-        <SidebarLink to="/dashboard" label="Overview" collapsed={collapsed} />
-        <SidebarLink
-          to="/dashboard/transactions"
-          label="Transactions"
-          collapsed={collapsed}
-        />
-        <SidebarLink
-          to="/dashboard/goals"
-          label="Goals"
-          collapsed={collapsed}
-        />
-      </nav>
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="text-gray-400 hover:text-white transition"
+            aria-label="Toggle sidebar"
+          >
+            {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="mt-4 space-y-1 px-2">
+          <SidebarLink
+            to="/dashboard"
+            label="Overview"
+            icon={<LayoutDashboard size={20} />}
+            collapsed={collapsed}
+          />
+
+          <SidebarLink
+            to="/dashboard/transactions"
+            label="Transactions"
+            icon={<ArrowLeftRight size={20} />}
+            collapsed={collapsed}
+          />
+
+          <SidebarLink
+            to="/dashboard/goals"
+            label="Goals"
+            icon={<Target size={20} />}
+            collapsed={collapsed}
+          />
+        </nav>
+      </div>
 
       {/* Logout */}
       <div className="p-4 border-t border-white/10">
@@ -52,8 +68,10 @@ export default function Sidebar() {
           onClick={handleLogout}
           className="w-full flex items-center justify-center gap-2
                      text-red-400 hover:text-red-300 transition"
+          aria-label="Logout"
         >
-          ⏻ {!collapsed && "Logout"}
+          <LogOut size={18} />
+          {!collapsed && <span>Logout</span>}
         </button>
       </div>
     </motion.aside>
@@ -63,10 +81,12 @@ export default function Sidebar() {
 function SidebarLink({
   to,
   label,
+  icon,
   collapsed,
 }: {
   to: string;
   label: string;
+  icon: React.ReactNode;
   collapsed: boolean;
 }) {
   return (
@@ -77,13 +97,16 @@ function SidebarLink({
         `
         flex items-center gap-3 px-3 py-2 rounded-lg
         transition
-        ${isActive ? "bg-violet-600 text-white" : "text-gray-400 hover:bg-white/5"}
+        ${
+          isActive
+            ? "bg-violet-600 text-white"
+            : "text-gray-400 hover:bg-white/5 hover:text-white"
+        }
       `
       }
     >
-      <span className="text-sm font-medium">
-        {!collapsed && label}
-      </span>
+      {icon}
+      {!collapsed && <span className="text-sm font-medium">{label}</span>}
     </NavLink>
   );
 }
