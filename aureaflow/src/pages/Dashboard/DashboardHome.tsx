@@ -10,10 +10,27 @@ export default function DashboardHome() {
   } | null>(null);
 
   useEffect(() => {
-    getDashboardSummary()
-      .then(setSummary)
-      .finally(() => setLoading(false));
-  }, []);
+  let mounted = true;
+
+  async function loadDashboard() {
+    try {
+      const data = await getDashboardSummary();
+      if (mounted) setSummary(data);
+    } catch (err) {
+      console.error("Dashboard error:", err);
+      if (mounted) setSummary(null);
+    } finally {
+      if (mounted) setLoading(false);
+    }
+  }
+
+  loadDashboard();
+
+  return () => {
+    mounted = false;
+  };
+}, []);
+
 
   if (loading) return <div>Loading dashboard...</div>;
 
