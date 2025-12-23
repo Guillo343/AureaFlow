@@ -21,7 +21,6 @@ export default function Footer() {
           </span>
         </div>
 
-        {/* Meta */}
         <div className="text-xs text-gray-500 text-center md:text-right">
           © {new Date().getFullYear()} AureaFlow  
           <span className="mx-2">•</span>
