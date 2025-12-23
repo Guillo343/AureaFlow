@@ -66,3 +66,33 @@ html, body {
 .container-main {
   @apply max-w-7xl mx-auto px-6;
 }
+.widget-card {
+  background-color: #151515;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.widget-card:hover {
+  border-color: #7c3aed;
+  transform: translateY(-2px);
+}
+
+.widget-title {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.widget-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.widget-sub {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
