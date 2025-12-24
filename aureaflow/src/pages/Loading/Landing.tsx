@@ -1,7 +1,7 @@
-import Hero from "../../components/Landing/HeroSection";
-import Features from "../../components/Landing/FeaturesSection";
-import Stats from "../../components/Landing/StatsSection";
-import CTA from "../../components/Landing/CTASection";
+import Hero from "../Landing/HeroSection";
+import Features from "../Landing/FeaturesSection";
+import Stats from "../Landing/StatsSection";
+import CTA from "../Landing/CTASection";
 
 export default function LandingPage() {
   return (
