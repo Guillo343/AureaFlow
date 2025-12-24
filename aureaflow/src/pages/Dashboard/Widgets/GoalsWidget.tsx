@@ -17,10 +17,7 @@ export default function GoalsWidget({ goals }: { goals: Goal[] }) {
 
       <div className="mt-3 space-y-1">
         {goals.slice(0, 3).map((goal) => (
-          <p
-            key={goal.id}   // 👈 AQUÍ estaba el problema
-            className="text-sm text-gray-300 truncate"
-          >
+          <p key={goal.id} className="text-sm text-gray-300 truncate">
             {goal.title}
           </p>
         ))}
