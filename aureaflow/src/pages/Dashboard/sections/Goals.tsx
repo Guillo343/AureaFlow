@@ -1,37 +1,56 @@
 import { useEffect, useState } from "react";
+import { supabase } from "../../../lib/supabaseClient";
 import type { Goal } from "../../../features/auth/finances/types";
-import {getGoals, createGoal, deleteGoal} from "../../../features/auth/finances/goals.service";
+import { getGoals, createGoal, deleteGoal} from "../../../features/auth/finances/goals.service";
 
 export default function Goals() {
   const [goals, setGoals] = useState<Goal[]>([]);
-  const [name, setName] = useState("");
-  const [target, setTarget] = useState(0);
+  const [title, setTitle] = useState("");
+  const [target, setTarget] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadGoals();
   }, []);
 
   async function loadGoals() {
-    const data = await getGoals();
-    setGoals(data);
+    try {
+      const data = await getGoals();
+      setGoals(data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleCreate() {
+    if (!title || target <= 0) return;
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
     await createGoal({
-      name,
+      user_id: user.id, 
+      title,
       target_amount: target,
       current_amount: 0,
       priority: goals.length + 1,
+      deadline: null,
     });
-    setName("");
+
+    setTitle("");
     setTarget(0);
     loadGoals();
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(id: number) {
     await deleteGoal(id);
     loadGoals();
   }
+
+  if (loading) return <div>Loading goals...</div>;
 
   return (
     <div className="space-y-6">
@@ -41,18 +60,25 @@ export default function Goals() {
       <div className="flex gap-2">
         <input
           className="bg-black border px-3 py-2"
-          placeholder="Goal name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          placeholder="Goal title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
+
         <input
           type="number"
           className="bg-black border px-3 py-2"
-          placeholder="Target"
+          placeholder="Target amount"
           value={target}
           onChange={(e) => setTarget(Number(e.target.value))}
         />
-        <button onClick={handleCreate}>Add</button>
+
+        <button
+          onClick={handleCreate}
+          className="px-4 py-2 bg-violet-600 rounded"
+        >
+          Add
+        </button>
       </div>
 
       {/* List */}
@@ -63,7 +89,7 @@ export default function Goals() {
             className="p-4 border rounded-lg flex justify-between"
           >
             <div>
-              <p className="font-medium">{goal.name}</p>
+              <p className="font-medium">{goal.title}</p>
               <p className="text-sm text-gray-400">
                 ${goal.current_amount} / ${goal.target_amount}
               </p>
