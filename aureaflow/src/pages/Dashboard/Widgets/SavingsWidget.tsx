@@ -6,8 +6,7 @@ export default function SavingsWidget({ savings }: { savings: number }) {
   return (
     <div
       onClick={() => navigate("/dashboard/savings")}
-      className="widget-card"
-    >
+      className="widget-card">
       <p className="widget-title">Savings</p>
       <p className="widget-value">${savings}</p>
       <p className="widget-sub">Available</p>

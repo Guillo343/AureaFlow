@@ -5,10 +5,7 @@ import type { Goal } from "./types";
  * Obtener todas las metas del usuario ordenadas por prioridad
  */
 export async function getGoals(): Promise<Goal[]> {
-  const { data, error } = await supabase
-    .from("goals")
-    .select("*")
-    .order("priority", { ascending: true });
+  const { data, error } = await supabase.from("goals").select("*").order("priority", { ascending: true });
 
   if (error) throw error;
   return data as Goal[];
@@ -21,9 +18,7 @@ export async function getGoals(): Promise<Goal[]> {
 export async function createGoal(
   goal: Omit<Goal, "id" | "created_at">
 ) {
-  const { error } = await supabase
-    .from("goals")
-    .insert([goal]);
+  const { error } = await supabase.from("goals").insert([goal]);
 
   if (error) throw error;
 }
@@ -36,9 +31,7 @@ export async function updateGoal(
   updates: Partial<Goal>
 ) {
   const { error } = await supabase
-    .from("goals")
-    .update(updates)
-    .eq("id", id);
+    .from("goals").update(updates).eq("id", id);
 
   if (error) throw error;
 }
@@ -47,10 +40,7 @@ export async function updateGoal(
  * Eliminar una meta
  */
 export async function deleteGoal(id: number) {
-  const { error } = await supabase
-    .from("goals")
-    .delete()
-    .eq("id", id);
+  const { error } = await supabase.from("goals").delete().eq("id", id);
 
   if (error) throw error;
 }

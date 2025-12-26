@@ -12,8 +12,7 @@ export default function Navbar() {
   return (
     <button
       onClick={handleLogout}
-      className="text-sm text-red-400 hover:text-red-300 transition"
-    >
+      className="text-sm text-red-400 hover:text-red-300 transition">
       Log out
     </button>
   );

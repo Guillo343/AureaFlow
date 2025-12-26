@@ -8,20 +8,10 @@ export async function getDashboardSummary() {
 
   const [{ data: incomes }, { data: expenses }, { data: goals }] =
     await Promise.all([
+      supabase.from("incomes").select("amount").eq("user_id", userId),
+      supabase.from("expenses").select("amount").eq("user_id", userId),
       supabase
-        .from("incomes")
-        .select("amount")
-        .eq("user_id", userId),
-
-      supabase
-        .from("expenses")
-        .select("amount")
-        .eq("user_id", userId),
-
-      supabase
-        .from("goals")
-        .select("current_amount, target_amount")
-        .eq("user_id", userId),
+        .from("goals").select("current_amount, target_amount").eq("user_id", userId),
     ]);
 
   return {

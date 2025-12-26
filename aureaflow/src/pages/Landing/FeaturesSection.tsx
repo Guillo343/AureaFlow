@@ -15,13 +15,8 @@ export default function FeaturesSection() {
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         {features.map((f, i) => (
           <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="p-6 border rounded-xl shadow-sm bg-white hover:shadow-md transition"
-          >
+            key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
+            className="p-6 border rounded-xl shadow-sm bg-white hover:shadow-md transition">
             <h3 className="font-semibold text-xl mb-2">{f.title}</h3>
             <p className="text-gray-600">{f.desc}</p>
           </motion.div>

@@ -10,8 +10,7 @@ export default function CTASection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-bold mb-6"
-      >
+        className="text-4xl font-bold mb-6">
         Ready to Start Your Financial Journey?
       </motion.h2>
 
@@ -20,13 +19,8 @@ export default function CTASection() {
         aria-label="Get started with AureaFlow"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
-        className="inline-flex items-center justify-center
-                   px-6 py-3 rounded-lg font-medium
-                   bg-violet-600 text-white
-                   shadow-lg shadow-violet-600/30
-                   transition-colors
-                   hover:bg-violet-500"
-      >
+        className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-mediumbg-violet-600 text-white
+                   shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500">
         Create your account for FREE!
       </MotionLink>
     </section>

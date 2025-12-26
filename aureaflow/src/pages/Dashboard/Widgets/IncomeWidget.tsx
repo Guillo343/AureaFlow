@@ -6,8 +6,7 @@ export default function IncomeWidget({ total }: { total: number }) {
   return (
     <div
       onClick={() => navigate("/dashboard/income")}
-      className="widget-card"
-    >
+      className="widget-card">
       <p className="widget-title">Income</p>
       <p className="widget-value">${total}</p>
       <p className="widget-sub">This month</p>

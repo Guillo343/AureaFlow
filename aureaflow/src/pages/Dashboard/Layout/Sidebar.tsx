@@ -20,15 +20,13 @@ export default function Sidebar() {
     <motion.aside
       animate={{ width: collapsed ? 80 : 240 }}
       className="h-screen bg-[#0f0f0f] border-r border-white/10
-                 flex flex-col justify-between px-4 py-6"
-    >
+                 flex flex-col justify-between px-4 py-6">
       {/* Top */}
       <div className="space-y-8">
         <button
           onClick={() => setCollapsed(!collapsed)}
           aria-expanded={!collapsed}
-          className="text-gray-400 hover:text-white transition self-end"
-        >
+          className="text-gray-400 hover:text-white transition self-end">
           {collapsed ? "→" : "←"}
         </button>
 
@@ -50,12 +48,8 @@ export default function Sidebar() {
       {/* Bottom */}
       <button
         onClick={handleLogout}
-        className="w-10 h-10 rounded-full
-                   bg-red-500/10 text-red-400
-                   hover:bg-red-500 hover:text-white
-                   transition flex items-center justify-center"
-        aria-label="Logout"
-      >
+        className="w-10 h-10 rounded-full bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white
+                   transition flex items-center justify-center" aria-label="Logout">
         ⎋
       </button>
     </motion.aside>

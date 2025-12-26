@@ -7,8 +7,7 @@ export default function GoalsWidget({ goals }: { goals: Goal[] }) {
   return (
     <div
       className="rounded-xl bg-[#151515] p-5 border border-white/10 cursor-pointer"
-      onClick={() => navigate("/dashboard/goals")}
-    >
+      onClick={() => navigate("/dashboard/goals")}>
       <p className="text-sm text-gray-400">Goals</p>
 
       <p className="text-xl font-semibold mt-2">
