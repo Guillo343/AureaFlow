@@ -37,11 +37,8 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] flex items-center justify-center px-4">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-md bg-[#151515] p-8 rounded-2xl shadow-xl border border-white/10"
-      >
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-md bg-[#151515] p-8 rounded-2xl shadow-xl border border-white/10">
         <h1 className="text-3xl font-semibold text-white text-center mb-6">
           Welcome Back
         </h1>
@@ -63,8 +60,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
-              placeholder="Enter your email"
-            />
+              placeholder="Enter your email"/>
           </div>
 
           <div>
@@ -72,17 +68,13 @@ export default function Login() {
               Password
             </label>
             <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="password" value={password} onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 bg-[#0f0f0f] border border-white/10 rounded-lg text-white focus:outline-none focus:border-indigo-500 transition"
-              placeholder="Enter your password"
-            />
+              placeholder="Enter your password"/>
           </div>
 
           <button
-            type="submit"
-            disabled={loading}
+            type="submit" disabled={loading}
             className="w-full py-3 mt-4 bg-indigo-600 hover:bg-indigo-500 transition rounded-lg text-white font-semibold disabled:opacity-50"
           >
             {loading ? "Signing In..." : "Sign In"}
@@ -93,8 +85,7 @@ export default function Login() {
           Don't have an account?{" "}
           <Link
             to="/signup"
-            className="text-indigo-400 hover:text-indigo-300 transition"
-          >
+            className="text-indigo-400 hover:text-indigo-300 transition">
             Create one
           </Link>
         </p>

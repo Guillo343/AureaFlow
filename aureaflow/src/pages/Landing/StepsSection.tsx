@@ -15,12 +15,8 @@ export default function StepsSection() {
         {steps.map((s, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.15 }}
-            className="p-6 border rounded-xl bg-white shadow-sm"
-          >
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.15 }}
+            className="p-6 border rounded-xl bg-white shadow-sm">
             <span className="text-4xl font-bold text-blue-600">{s.step}</span>
             <p className="mt-4 text-gray-600">{s.text}</p>
           </motion.div>

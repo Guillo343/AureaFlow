@@ -4,13 +4,8 @@ export default function Footer() {
   return (
     <footer className=" p-8 bg-[#0f0f0f] border-t border-white/10">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className="container-main py-8 flex flex-col md:flex-row
-                   items-center justify-between gap-4 text-sm text-gray-400"
-      >
+        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.4, ease: "easeOut" }}
+        className="container-main py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
         {/* Brand */}
         <div className="flex flex-col items-center md:items-start">
           <span className="text-white font-semibold text-base">

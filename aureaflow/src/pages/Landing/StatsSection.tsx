@@ -13,9 +13,7 @@ export default function StatsSection() {
       <div className="max-w-5xl mx-auto grid md:grid-cols-4 gap-8 text-center">
         {stats.map((s, i) => (
           <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.5 }}>
+            key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
             <h3 className="text-4xl font-bold">{s.value}</h3>
             <p className="text-lg opacity-90">{s.label}</p>
           </motion.div>

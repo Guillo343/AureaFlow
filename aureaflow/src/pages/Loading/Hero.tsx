@@ -4,11 +4,7 @@ export default function Hero() {
   return (
     <section className="h-screen flex items-center justify-center container-main">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-center"
-      >
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="text-center">
         <h1 className="text-6xl font-bold mb-6">
           Welcome to <span className="text-indigo-400">AureaFlow</span>
         </h1>

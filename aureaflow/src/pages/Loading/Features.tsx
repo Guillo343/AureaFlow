@@ -14,13 +14,8 @@ export default function Features() {
       <div className="grid md:grid-cols-3 gap-10">
         {features.map((f, idx) => (
           <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-150px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="bg-[#151515] p-8 rounded-2xl shadow-soft hover-lift hover-scale-sm"
-          >
+            key={idx} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-150px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }} className="bg-[#151515] p-8 rounded-2xl shadow-soft hover-lift hover-scale-sm">
             <h3 className="text-2xl font-semibold mb-2 text-indigo-300">{f.title}</h3>
             <p className="opacity-75">{f.desc}</p>
           </motion.div>
