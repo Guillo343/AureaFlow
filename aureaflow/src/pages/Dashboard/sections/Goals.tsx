@@ -97,7 +97,7 @@ export default function Goals() {
 
             <button
               onClick={() => handleDelete(goal.id)}
-              className="text-red-400"
+              className="text-red-400 hover:text-red-600 transition cursor-pointer"
             >
               Delete
             </button>
