@@ -17,10 +17,11 @@ export async function getGoals(): Promise<Goal[]> {
  */
 export async function createGoal(
   goal: Omit<Goal, "id" | "created_at">
-) {
-  const { error } = await supabase.from("goals").insert([goal]);
+): Promise <Goal> {
+  const { data, error } = await supabase.from("goals").insert(goal).select().single();
 
   if (error) throw error;
+  return data as Goal;
 }
 
 /**
