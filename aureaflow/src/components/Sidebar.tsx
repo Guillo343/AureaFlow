@@ -18,8 +18,7 @@ export default function Sidebar() {
       animate={{ width: collapsed ? 80 : 240 }}
       transition={{ duration: 0.25 }}
       className="h-screen bg-[#0f0f0f] border-r border-white/10
-                 flex flex-col justify-between"
-    >
+                 flex flex-col justify-between">
       {/* Top */}
       <div>
         {/* Logo + Collapse */}
@@ -31,8 +30,7 @@ export default function Sidebar() {
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="text-gray-400 hover:text-white transition"
-            aria-label="Toggle sidebar"
-          >
+            aria-label="Toggle sidebar">
             {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
           </button>
         </div>
@@ -43,28 +41,24 @@ export default function Sidebar() {
             to="/dashboard"
             label="Overview"
             icon={<LayoutDashboard size={20} />}
-            collapsed={collapsed}
-          />
+            collapsed={collapsed}/>
 
           <SidebarLink
             to="/dashboard/transactions"
             label="Transactions"
             icon={<ArrowLeftRight size={20} />}
-            collapsed={collapsed}
-          />
+            collapsed={collapsed}/>
 
           <SidebarLink
             to="/dashboard/goals"
             label="Goals"
             icon={<Target size={20} />}
-            collapsed={collapsed}
-          />
+            collapsed={collapsed}/>
           <SidebarLink
             to="/dashboard/incomes"
             label="Incomes"
             icon={<BanknoteArrowUp size={20} />}
-            collapsed={collapsed}
-          />
+            collapsed={collapsed}/>
         </nav>
       </div>
 
@@ -74,8 +68,7 @@ export default function Sidebar() {
           onClick={handleLogout}
           className="w-full flex items-center justify-center gap-2
                      text-red-400 hover:text-red-300 transition"
-          aria-label="Logout"
-        >
+          aria-label="Logout">
           <LogOut size={18} />
           {!collapsed && <span>Logout</span>}
         </button>
