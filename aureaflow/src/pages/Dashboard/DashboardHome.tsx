@@ -35,7 +35,7 @@ export default function DashboardHome() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <IncomeWidget total={summary.totalIncome} />
         <ExpensesWidget total={summary.totalExpenses} />
-        <SavingsWidget savings={summary.totalIncome - summary.totalExpenses}/>
+        <SavingsWidget savings={summary.totalIncome - summary.totalExpenses} />
         <GoalsWidget goals={summary.goals} />
         <FixedExpensesWidget />
         <VariableExpensesWidget />
