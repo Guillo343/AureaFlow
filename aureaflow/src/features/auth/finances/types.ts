@@ -17,3 +17,10 @@ export type Income = {
   note: string | null;
   created_at: string;
 };
+export type Saving = {
+  id: number;
+  user_id: string;
+  name: string;
+  current_amount: number;
+  created_at: string;
+};

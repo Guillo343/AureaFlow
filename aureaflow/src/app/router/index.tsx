@@ -11,6 +11,7 @@ import DashboardHome from "../../pages/Dashboard/DashboardHome";
 import Transactions from "../../pages/Dashboard/sections/Transactions";
 import Goals from "../../pages/Dashboard/sections/Goals";
 import Incomes from "../../pages/Dashboard/sections/Incomes";
+import Savings from "../../pages/Dashboard/sections/Savings";
 
 import ProtectedRoute from "../../features/auth/ProtectedRoute";
 
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
               { path: "transactions", element: <Transactions /> },
               { path: "goals", element: <Goals /> },
               { path: "incomes", element: <Incomes /> },
+              { path: "savings", element: <Savings /> },
             ],
           },
         ],
