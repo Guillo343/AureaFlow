@@ -11,8 +11,9 @@ export type Goal = {
 export type Income = {
   id: number;
   user_id: string;
-  title: string;
+  category: string;
   amount: number;
-  type: "monthly" | "variable" | "one_time";
+  date: string;
+  note: string | null;
   created_at: string;
 };
