@@ -3,6 +3,8 @@ import { getDashboardSummary } from "../../features/auth/finances/dashboard.serv
 
 import IncomeWidget from "./Widgets/IncomeWidget";
 import ExpensesWidget from "./Widgets/ExpensesWidget";
+import ExpensesBreakdownChart from "./Widgets/ExpensesBreakdownChart";
+import ExpensesByCategoryChart from "./Widgets/ExpensesByCategoryChart";
 import SavingsWidget from "./Widgets/SavingsWidget";
 import GoalsWidget from "./Widgets/GoalsWidget";
 
@@ -33,6 +35,8 @@ export default function DashboardHome() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <IncomeWidget total={summary.totalIncome} />
         <ExpensesWidget total={summary?.totalExpenses ?? 0} fixed={summary?.fixedExpenses ?? 0} variable={summary?.variableExpenses ?? 0} />
+        <ExpensesBreakdownChart fixed={summary?.fixedExpenses ?? 0} variable={summary?.variableExpenses ?? 0} />
+        <ExpensesByCategoryChart  data={summary.expensesByCategory ?? []} />
         <SavingsWidget savings={summary.totalIncome - summary.totalExpenses} />
         <GoalsWidget goals={summary.goals} />
       </div>
