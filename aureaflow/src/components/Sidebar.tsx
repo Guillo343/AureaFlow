@@ -105,10 +105,7 @@ function SidebarLink({ to, label, icon, collapsed}: {
           isActive
             ? "bg-violet-600 text-white"
             : "text-gray-400 hover:bg-white/5 hover:text-white"
-        }
-      `
-      }
-    >
+        }`}>
       {icon}
       {!collapsed && <span className="text-sm font-medium">{label}</span>}
     </NavLink>
