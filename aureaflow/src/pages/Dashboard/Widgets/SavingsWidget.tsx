@@ -15,9 +15,7 @@ export default function SavingsWidget({ savings }: Props) {
       whileTap={{ scale: 0.98 }}
       className="
         rounded-xl bg-[#151515] p-5 border border-white/10
-        cursor-pointer transition
-      "
-    >
+        cursor-pointer transition">
       <p className="text-sm text-gray-400">Savings</p>
 
       <p className="text-2xl font-semibold mt-2">
