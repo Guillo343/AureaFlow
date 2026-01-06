@@ -63,23 +63,19 @@ export default function Expenses() {
           placeholder="Amount"
           className="bg-black border px-3 py-2"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-        />
+          onChange={(e) => setAmount(Number(e.target.value))}/>
 
         <input
           placeholder="Category"
           className="bg-black border px-3 py-2"
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
+          onChange={(e) => setCategory(e.target.value)}/>
 
         <select
           className="bg-black border px-3 py-2"
           value={type}
           onChange={(e) =>
-            setType(e.target.value as "fixed" | "variable")
-          }
-        >
+            setType(e.target.value as "fixed" | "variable")}>
           <option value="variable">Variable</option>
           <option value="fixed">Fixed</option>
         </select>
@@ -88,13 +84,11 @@ export default function Expenses() {
           type="date"
           className="bg-black border px-3 py-2"
           value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
+          onChange={(e) => setDate(e.target.value)}/>
 
         <button
           onClick={handleCreate}
-          className="bg-violet-600 px-4 py-2 rounded"
-        >
+          className="bg-violet-600 px-4 py-2 rounded">
           Add
         </button>
       </div>
@@ -104,8 +98,7 @@ export default function Expenses() {
         {expenses.map((expense) => (
           <div
             key={expense.id}
-            className="p-4 border rounded-lg flex justify-between"
-          >
+            className="p-4 border rounded-lg flex justify-between">
             <div>
               <p className="font-medium">
                 ${expense.amount} · {expense.category}
@@ -117,8 +110,7 @@ export default function Expenses() {
 
             <button
               onClick={() => handleDelete(expense.id)}
-              className="text-red-400 hover:text-red-600"
-            >
+              className="text-red-400 hover:text-red-600">
               Delete
             </button>
           </div>
