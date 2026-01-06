@@ -18,7 +18,8 @@ export default function ExpensesWidget({
     <div
       onClick={() => navigate("/dashboard/expenses")}
       className="rounded-xl bg-[#151515] p-5 border border-white/10
-                 cursor-pointer hover:border-violet-500/40 transition">
+                 cursor-pointer hover:border-violet-500/40 transition"
+    >
       {/* Title */}
       <div className="flex items-center gap-2 text-gray-400 text-sm">
         <ArrowDownRight size={16} />

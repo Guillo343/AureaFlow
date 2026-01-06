@@ -5,6 +5,9 @@ import {getExpenses, createExpense, deleteExpense} from "../../../features/auth/
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // form state
   const [amount, setAmount] = useState<number>(0);
   const [category, setCategory] = useState("");
   const [type, setType] = useState<"fixed" | "variable">("variable");
@@ -16,8 +19,18 @@ export default function Expenses() {
   }, []);
 
   async function loadExpenses() {
-    const data = await getExpenses();
-    setExpenses(data);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      const data = await getExpenses(user.id);
+      setExpenses(data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleCreate() {
@@ -29,7 +42,7 @@ export default function Expenses() {
 
     if (!user) return;
 
-    const newExpense = await createExpense({
+    await createExpense({
       user_id: user.id,
       amount,
       category,
@@ -38,13 +51,14 @@ export default function Expenses() {
       note: note || null,
     });
 
-    setExpenses((prev) => [newExpense, ...prev]);
-
+    // reset form
     setAmount(0);
     setCategory("");
     setType("variable");
     setDate("");
     setNote("");
+
+    loadExpenses();
   }
 
   async function handleDelete(id: number) {
@@ -52,12 +66,16 @@ export default function Expenses() {
     setExpenses((prev) => prev.filter((e) => e.id !== id));
   }
 
+  if (loading) {
+    return <div className="text-gray-400">Loading expenses...</div>;
+  }
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <h1 className="text-2xl font-semibold">Expenses</h1>
 
-      {/* Create */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-2">
+      {/* Create Expense */}
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-3">
         <input
           type="number"
           placeholder="Amount"
@@ -75,9 +93,10 @@ export default function Expenses() {
           className="bg-black border px-3 py-2"
           value={type}
           onChange={(e) =>
-            setType(e.target.value as "fixed" | "variable")}>
-          <option value="variable">Variable</option>
+            setType(e.target.value as "fixed" | "variable")
+          }>
           <option value="fixed">Fixed</option>
+          <option value="variable">Variable</option>
         </select>
 
         <input
@@ -86,35 +105,57 @@ export default function Expenses() {
           value={date}
           onChange={(e) => setDate(e.target.value)}/>
 
+        <input
+          placeholder="Note (optional)"
+          className="bg-black border px-3 py-2 md:col-span-2"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}/>
+
         <button
           onClick={handleCreate}
-          className="bg-violet-600 px-4 py-2 rounded">
-          Add
+          className="bg-violet-600 hover:bg-violet-700 transition rounded px-4 py-2 md:col-span-6">
+          Add Expense
         </button>
       </div>
 
-      {/* List */}
+      {/* Expenses List */}
       <div className="space-y-3">
         {expenses.map((expense) => (
           <div
             key={expense.id}
-            className="p-4 border rounded-lg flex justify-between">
+            className="flex justify-between items-center p-4 border border-white/10 rounded-lg">
             <div>
               <p className="font-medium">
-                ${expense.amount} · {expense.category}
+                {expense.category}{" "}
+                <span className="text-xs text-gray-400">
+                  ({expense.type})
+                </span>
               </p>
               <p className="text-sm text-gray-400">
-                {expense.type} · {expense.date}
+                {expense.date}
+                {expense.note && ` · ${expense.note}`}
               </p>
             </div>
 
-            <button
-              onClick={() => handleDelete(expense.id)}
-              className="text-red-400 hover:text-red-600">
-              Delete
-            </button>
+            <div className="flex items-center gap-4">
+              <p className="font-semibold">
+                ${expense.amount.toLocaleString()}
+              </p>
+
+              <button
+                onClick={() => handleDelete(expense.id)}
+                className="text-red-400 hover:text-red-600 transition">
+                Delete
+              </button>
+            </div>
           </div>
         ))}
+
+        {expenses.length === 0 && (
+          <p className="text-gray-500 text-sm">
+            No expenses yet.
+          </p>
+        )}
       </div>
     </div>
   );
