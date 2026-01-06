@@ -12,6 +12,7 @@ import Transactions from "../../pages/Dashboard/sections/Transactions";
 import Goals from "../../pages/Dashboard/sections/Goals";
 import Incomes from "../../pages/Dashboard/sections/Incomes";
 import Savings from "../../pages/Dashboard/sections/Savings";
+import Expenses from "../../pages/Dashboard/sections/Expenses";
 
 import ProtectedRoute from "../../features/auth/ProtectedRoute";
 
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
               { path: "goals", element: <Goals /> },
               { path: "incomes", element: <Incomes /> },
               { path: "savings", element: <Savings /> },
+              { path: "expenses", element: <Expenses /> },
             ],
           },
         ],

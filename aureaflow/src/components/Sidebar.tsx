@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { LayoutDashboard, ArrowLeftRight, Target, ChevronLeft, ChevronRight, LogOut, BanknoteArrowUp, WalletMinimal } from "lucide-react";
+import { LayoutDashboard, ArrowLeftRight, Target, ChevronLeft, ChevronRight, LogOut, BanknoteArrowUp, WalletMinimal, HandCoins } from "lucide-react";
 import { logout } from "../pages/Auth/Logout";
 
 export default function Sidebar() {
@@ -63,6 +63,11 @@ export default function Sidebar() {
             to="/dashboard/savings"
             label="Savings"
             icon={<WalletMinimal size={20} />}
+            collapsed={collapsed}/>
+          <SidebarLink
+            to="/dashboard/expenses"
+            label="Expenses"
+            icon={<HandCoins size={20} />}
             collapsed={collapsed}/>
         </nav>
       </div>

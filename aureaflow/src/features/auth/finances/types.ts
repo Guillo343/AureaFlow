@@ -24,3 +24,13 @@ export type Saving = {
   current_amount: number;
   created_at: string;
 };
+export type Expense = {
+  id: number;
+  user_id: string;
+  category: string;
+  amount: number;
+  type: "fixed" | "variable";
+  date: string;
+  note: string | null;
+  created_at: string;
+}
