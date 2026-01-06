@@ -5,8 +5,6 @@ import IncomeWidget from "./Widgets/IncomeWidget";
 import ExpensesWidget from "./Widgets/ExpensesWidget";
 import SavingsWidget from "./Widgets/SavingsWidget";
 import GoalsWidget from "./Widgets/GoalsWidget";
-import FixedExpensesWidget from "./Widgets/FixedExpensesWidget";
-import VariableExpensesWidget from "./Widgets/VariableExpensesWidget";
 
 export default function DashboardHome() {
   const [loading, setLoading] = useState(true);
@@ -37,8 +35,6 @@ export default function DashboardHome() {
         <ExpensesWidget total={summary?.totalExpenses ?? 0} fixed={summary?.fixedExpenses ?? 0} variable={summary?.variableExpenses ?? 0} />
         <SavingsWidget savings={summary.totalIncome - summary.totalExpenses} />
         <GoalsWidget goals={summary.goals} />
-        <FixedExpensesWidget />
-        <VariableExpensesWidget />
       </div>
     </div>
   );
