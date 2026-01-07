@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
+import {BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer} from "recharts";
 
 type CategoryData = {
   category: string;
@@ -10,13 +10,20 @@ export default function ExpensesByCategoryChart({
 }: {
   data: CategoryData[];
 }) {
+  if (!data || data.length === 0) {
+    return (
+      <div className="rounded-xl bg-[#151515] p-5 border border-white/10">
+        <p className="text-sm text-gray-400">Expenses by Category</p>
+        <p className="text-sm text-gray-500 mt-4">No data yet</p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-xl bg-[#151515] p-5 border border-white/10">
-      <p className="text-sm text-gray-400 mb-4">
-        Expenses by Category
-      </p>
+      <p className="text-sm text-gray-400 mb-4">Expenses by Category</p>
 
-      <div className="h-64 min-h-64">
+      <div className="h-[260px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <XAxis

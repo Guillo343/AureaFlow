@@ -20,9 +20,9 @@ export default function Sidebar() {
     <motion.aside
       animate={{ width: collapsed ? 80 : 240 }}
       className="h-screen bg-[#0f0f0f] border-r border-white/10
-                 flex flex-col justify-between px-4 py-6">
+                 flex flex-col justify-between px-4 py-6 w-screen">
       {/* Top */}
-      <div className="space-y-8">
+      <div className="space-y-8 w-fit">
         <button
           onClick={() => setCollapsed(!collapsed)}
           aria-expanded={!collapsed}
