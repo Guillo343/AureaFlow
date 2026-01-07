@@ -20,8 +20,8 @@ export default function HeroSection() {
       <MotionLink
         to="/signup"
         aria-label="Get started with AureaFlow" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-        className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium bg-violet-600 text-white
-                   shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500">
+        className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-mediumbg-violet-600 text-white
+                    shadow-lg shadow-violet-600/30 transition-colors hover:bg-violet-500">
         Get Started
       </MotionLink>
     </section>

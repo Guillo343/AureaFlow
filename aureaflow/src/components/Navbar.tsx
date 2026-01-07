@@ -16,23 +16,20 @@ export default function Navbar() {
         {!user ? (
           <motion.div
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-          >
+            whileTap={{ scale: 0.97 }}>
             <Link
               to="/signup"
               className="px-6 py-3 rounded-lg font-medium
                          bg-violet-600 text-white
                          shadow-lg shadow-violet-600/30
-                         hover:bg-violet-500"
-            >
+                         hover:bg-violet-500">
               Sign Up
             </Link>
           </motion.div>
         ) : (
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 text-sm"
-          >
+            className="flex items-center gap-2 text-sm">
             <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white">
               {user.email?.[0].toUpperCase()}
             </div>
