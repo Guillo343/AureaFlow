@@ -19,14 +19,12 @@ function App() {
   return (
     <>
       <Navbar />
-
       <AnimatePresence mode="wait">
         <motion.div
           key="route" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }}>
           <Outlet />
         </motion.div>
       </AnimatePresence>
-
       <Footer />
     </>
   );

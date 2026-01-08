@@ -98,8 +98,7 @@ function SidebarLink({ to, label, icon, collapsed}: {
       to={to}
       end
       className={({ isActive }) =>
-        `
-        flex items-center gap-3 px-3 py-2 rounded-lg
+        `flex items-center gap-3 px-3 py-2 rounded-lg
         transition
         ${
           isActive

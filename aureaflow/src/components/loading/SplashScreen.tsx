@@ -7,14 +7,12 @@ export default function SplashScreen() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="w-full h-screen flex flex-col items-center justify-center bg-white"
-    >
+      className="w-full h-screen flex flex-col items-center justify-center bg-white">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-4xl font-bold text-gray-800 mb-4"
-      >
+        className="text-4xl font-bold text-gray-800 mb-4">
         AureaFlow
       </motion.h1>
 
@@ -22,8 +20,7 @@ export default function SplashScreen() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.8 }}
-        className="text-gray-600 mb-6"
-      >
+        className="text-gray-600 mb-6">
         Building your financial peace...
       </motion.p>
 
@@ -31,8 +28,7 @@ export default function SplashScreen() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.4, duration: 0.5, ease: "backOut" }}
-        className="w-12 h-12 border-4 border-gray-300 border-t-black rounded-full animate-spin"
-      />
+        className="w-12 h-12 border-4 border-gray-300 border-t-black rounded-full animate-spin"/>
     </motion.div>
   );
 }
