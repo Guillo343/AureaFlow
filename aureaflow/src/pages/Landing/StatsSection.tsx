@@ -1,21 +1,50 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { value: "100%", label: "Free to Use" },
-  { value: "0%", label: "Complexity" },
-  { value: "24/7", label: "Access Anywhere" },
-  { value: "1", label: "Unified Dashboard" },
+  {
+    value: "Real-time",
+    label: "Always up-to-date expenses",
+  },
+  {
+    value: "Privacy-first",
+    label: "Your financial data stays yours",
+  },
+  {
+    value: "Goal-driven",
+    label: "Savings with clear direction",
+  },
+  {
+    value: "One place",
+    label: "All your finances, unified",
+  },
 ];
 
 export default function StatsSection() {
   return (
-    <section className="py-24 px-6 w-full bg-blue-600 text-white">
-      <div className="max-w-5xl mx-auto grid md:grid-cols-4 gap-8 text-center">
+    <section
+      aria-labelledby="stats-title"
+      className="py-20 px-6 w-full"
+    >
+      <h2 id="stats-title" className="sr-only">
+        Product highlights
+      </h2>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
         {stats.map((s, i) => (
           <motion.div
-            key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-            <h3 className="text-4xl font-bold">{s.value}</h3>
-            <p className="text-lg opacity-90">{s.label}</p>
+            key={i}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: i * 0.05 }}
+            className="flex flex-col gap-2"
+          >
+            <span className="text-xl md:text-2xl font-semibold">
+              {s.value}
+            </span>
+            <span className="text-sm text-gray-400">
+              {s.label}
+            </span>
           </motion.div>
         ))}
       </div>

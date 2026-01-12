@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 const features = [
   {
     title: "Income Tracking",
-    desc: "Track monthly salary and variable income with clarity and precision.",
+    desc: "Know exactly how much you earn — every month, every source.",
   },
   {
     title: "Smart Expenses",
-    desc: "Register expenses and instantly see how they affect your budget.",
+    desc: "See where your money goes and how every expense impacts your balance.",
   },
   {
     title: "Savings Goals",
-    desc: "Create goals and monitor real progress toward financial freedom.",
+    desc: "Set clear goals and watch your progress grow over time.",
   },
   {
     title: "Financial Insights",
-    desc: "Understand your money with automatic calculations and summaries.",
+    desc: "Get instant summaries that turn numbers into understanding.",
   },
 ];
 
