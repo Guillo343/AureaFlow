@@ -1,26 +1,80 @@
 import { motion } from "framer-motion";
 
 const features = [
-  { title: "Income Tracking", desc: "Track monthly salary and variable income easily." },
-  { title: "Smart Expenses", desc: "Add expenses and watch your budget update live." },
-  { title: "Savings Goals", desc: "Plan goals and record real saving progress." },
-  { title: "Financial Insights", desc: "Get calculated insights about your money." },
+  {
+    title: "Income Tracking",
+    desc: "Track monthly salary and variable income with clarity and precision.",
+  },
+  {
+    title: "Smart Expenses",
+    desc: "Register expenses and instantly see how they affect your budget.",
+  },
+  {
+    title: "Savings Goals",
+    desc: "Create goals and monitor real progress toward financial freedom.",
+  },
+  {
+    title: "Financial Insights",
+    desc: "Understand your money with automatic calculations and summaries.",
+  },
 ];
 
 export default function FeaturesSection() {
   return (
-    <section className="py-24 px-6 w-full max-w-7xl mx-auto">
-      <h2 className="text-4xl font-bold text-center mb-12">Features</h2>
+    <section
+      aria-labelledby="features-title"
+      className="relative py-32 px-6 w-full">
+      <div className="max-w-7xl mx-auto">
+        {/* Section header */}
+        <header className="text-center mb-20">
+          <h2
+            id="features-title"
+            className="text-4xl lg:text-5xl font-bold mb-6">
+            Everything you need to stay in control
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            AureaFlow gives you the tools to understand, organize, and grow your
+            finances — without complexity.
+          </p>
+        </header>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map((f, i) => (
-          <motion.div
-            key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="p-6 border rounded-xl shadow-sm bg-white hover:shadow-md transition">
-            <h3 className="font-semibold text-xl mb-2">{f.title}</h3>
-            <p className="text-gray-600">{f.desc}</p>
-          </motion.div>
-        ))}
+        {/* Features grid */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map((feature, index) => (
+            <motion.article
+              key={feature.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="
+                group relative p-8 rounded-2xl
+                bg-white/5 backdrop-blur
+                border border-white/10
+                hover:border-violet-500/40
+                transition">
+              <h3 className="text-xl font-semibold mb-3">
+                {feature.title}
+              </h3>
+
+              <p className="text-gray-400 leading-relaxed">
+                {feature.desc}
+              </p>
+
+              {/* Hover glow */}
+              <div
+                aria-hidden
+                className="
+                  pointer-events-none absolute inset-0 rounded-2xl
+                  opacity-0 group-hover:opacity-100
+                  transition
+                  bg-linear-to-br
+                  from-violet-500/10
+                  via-transparent
+                  to-transparent"/>
+            </motion.article>
+          ))}
+        </div>
       </div>
     </section>
   );

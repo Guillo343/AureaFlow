@@ -1,31 +1,10 @@
-import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export default function HeroSection() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  }
-
   return (
-    <section
-      onMouseMove={handleMouseMove}
-      className="relative w-full min-h-screen overflow-hidden flex items-center justify-center px-6">
-      {/* Background glow */}
-      <motion.div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              600px circle at ${mouseX}px ${mouseY}px,
-              rgba(139,92,246,0.15),
-              transparent 60%
-            )`,}}
-      />
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center px-6">
+      <motion.div className="pointer-events-none absolute inset-0" />
 
       <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left content */}
@@ -35,8 +14,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-5xl lg:text-6xl font-bold mb-6">
-            Take Control of Your{" "}
-            <span className="text-violet-400">Money</span>
+            Take Control of Your <span className="text-violet-400">Money</span>
           </motion.h1>
 
           <motion.p
