@@ -37,8 +37,7 @@ export default function StatsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="flex flex-col gap-2"
-          >
+            className="flex flex-col gap-2">
             <span className="text-xl md:text-2xl font-semibold">
               {s.value}
             </span>
