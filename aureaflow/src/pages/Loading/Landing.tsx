@@ -4,6 +4,7 @@ import Hero from "../Landing/HeroSection";
 import Features from "../Landing/FeaturesSection";
 import Stats from "../Landing/StatsSection";
 import CTA from "../Landing/CTASection";
+import Navbar from "../../components/Navbar";
 
 export default function LandingPage() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -19,7 +20,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-linear-to-b from-[#0f0f0f] to-[#181818] text-white">
-      
+      <Navbar />
       {/* Mouse light background */}
       <div
         aria-hidden
