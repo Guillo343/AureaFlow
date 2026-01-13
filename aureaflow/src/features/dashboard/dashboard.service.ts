@@ -18,26 +18,10 @@ export async function getDashboardData(): Promise<DashboardData> {
   };
 
   const [incomesRes, expensesRes, goalsRes, profileRes] = await Promise.all([
-    supabase
-      .from("incomes")
-      .select("amount")
-      .eq("user_id", user.id),
-
-    supabase
-      .from("expenses")
-      .select("amount, category, type")
-      .eq("user_id", user.id),
-
-    supabase
-      .from("goals")
-      .select("id, name, current_amount, target_amount")
-      .eq("user_id", user.id),
-
-    supabase
-      .from("profiles")
-      .select("name")
-      .eq("id", user.id)
-      .single(),
+    supabase.from("incomes").select("amount").eq("user_id", user.id),
+    supabase.from("expenses").select("amount, category, type").eq("user_id", user.id),
+    supabase.from("goals").select("id, name, current_amount, target_amount").eq("user_id", user.id),
+    supabase.from("profiles").select("name").eq("id", user.id).single(),
   ]);
 
   if (
@@ -57,13 +41,10 @@ export async function getDashboardData(): Promise<DashboardData> {
 
   const fixedExpenses =
     expensesRes.data
-      ?.filter((e) => e.type === "fixed")
-      .reduce((sum, e) => sum + Number(e.amount), 0) ?? 0;
+      ?.filter((e) => e.type === "fixed").reduce((sum, e) => sum + Number(e.amount), 0) ?? 0;
 
   const variableExpenses =
-    expensesRes.data
-      ?.filter((e) => e.type === "variable")
-      .reduce((sum, e) => sum + Number(e.amount), 0) ?? 0;
+    expensesRes.data?.filter((e) => e.type === "variable").reduce((sum, e) => sum + Number(e.amount), 0) ?? 0;
 
   const byCategoryMap: Record<string, number> = {};
 
