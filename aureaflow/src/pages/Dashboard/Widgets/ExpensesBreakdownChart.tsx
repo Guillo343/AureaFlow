@@ -1,6 +1,5 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip,} from "recharts";
 import { motion } from "framer-motion";
-// import { TrendingUp, TrendingDown } from "lucide-react";
 
 type Props = {
   fixed: number;
@@ -12,22 +11,30 @@ const COLORS = {
   variable: "#22c55e",
 };
 
-export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
+export default function ExpensesBreakdownChart({
+  fixed,
+  variable,
+}: Props) {
   const total = fixed + variable;
-  const fixedPercentage = ((fixed / total) * 100).toFixed(1);
-  const variablePercentage = ((variable / total) * 100).toFixed(1);
+
+  const fixedPercentage =
+    total > 0 ? ((fixed / total) * 100).toFixed(1) : "0";
+
+  const variablePercentage =
+    total > 0 ? ((variable / total) * 100).toFixed(1) : "0";
 
   const data = [
     { name: "Fixed", value: fixed, color: COLORS.fixed },
     { name: "Variable", value: variable, color: COLORS.variable },
   ];
 
-  // Custom Tooltip
+
   const CustomTooltip = ({ active, payload }: any) => {
-    if (!active || !payload) return null;
+    if (!active || !payload || !payload.length) return null;
 
     const item = payload[0];
-    const percentage = ((item.value / total) * 100).toFixed(1);
+    const percentage =
+      total > 0 ? ((item.value / total) * 100).toFixed(1) : "0";
 
     return (
       <div className="bg-[#1a1a1a] border border-white/20 rounded-lg p-3 shadow-xl">
@@ -35,14 +42,21 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
         <p className="text-gray-300 text-sm">
           ${item.value.toLocaleString()}
         </p>
-        <p className="text-gray-400 text-xs mt-1">{percentage}% del total</p>
+        <p className="text-gray-400 text-xs mt-1">
+          {percentage}% of total
+        </p>
       </div>
     );
   };
 
-  // Custom Label en el centro
-  const CenterLabel = ({ viewBox }: any) => {
+
+  const CenterLabel = ({
+    viewBox,
+  }: {
+    viewBox: { cx: any; cy: any };
+  }) => {
     const { cx, cy } = viewBox;
+
     return (
       <g>
         <text
@@ -54,6 +68,7 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
         >
           ${total.toLocaleString()}
         </text>
+
         <text
           x={cx}
           y={cy + 15}
@@ -67,6 +82,7 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
     );
   };
 
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -76,7 +92,10 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-gray-400">Expenses Breakdown</p>
+        <p className="text-sm text-gray-400">
+          Expenses Breakdown
+        </p>
+
         <div className="flex items-center gap-2 text-xs text-gray-500">
           <span className="w-2 h-2 rounded-full bg-purple-500"></span>
           <span className="w-2 h-2 rounded-full bg-green-500"></span>
@@ -96,32 +115,39 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
               startAngle={90}
               endAngle={450}
               animationDuration={1000}
-              animationBegin={0}
             >
               {data.map((entry, index) => (
                 <Cell
-                  key={`cell-${index}`}
+                  key={index}
                   fill={entry.color}
                   stroke="none"
                   style={{
-                    filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))",
+                    filter:
+                      "drop-shadow(0 4px 6px rgba(0,0,0,0.3))",
                   }}
                 />
               ))}
             </Pie>
+
             <Tooltip content={<CustomTooltip />} />
-            <text {...CenterLabel({ viewBox: { cx: "50%", cy: "50%" } })} />
+
+            {/* Center label */}
+            <CenterLabel
+              viewBox={{ cx: "50%", cy: "50%" }}
+            />
           </PieChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Legend mejorada */}
+      {/* Legend */}
       <div className="grid grid-cols-2 gap-4 mt-6">
         {/* Fixed */}
         <div className="bg-white/5 rounded-lg p-3 border border-purple-500/20">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-            <span className="text-xs text-gray-400">Fixed</span>
+            <span className="text-xs text-gray-400">
+              Fixed
+            </span>
           </div>
           <p className="text-white font-semibold text-lg">
             ${fixed.toLocaleString()}
@@ -130,7 +156,9 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
             <span className="text-purple-400 text-xs font-medium">
               {fixedPercentage}%
             </span>
-            <span className="text-gray-500 text-xs">of total</span>
+            <span className="text-gray-500 text-xs">
+              of total
+            </span>
           </div>
         </div>
 
@@ -138,7 +166,9 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
         <div className="bg-white/5 rounded-lg p-3 border border-green-500/20">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="text-xs text-gray-400">Variable</span>
+            <span className="text-xs text-gray-400">
+              Variable
+            </span>
           </div>
           <p className="text-white font-semibold text-lg">
             ${variable.toLocaleString()}
@@ -147,28 +177,41 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
             <span className="text-green-400 text-xs font-medium">
               {variablePercentage}%
             </span>
-            <span className="text-gray-500 text-xs">of total</span>
+            <span className="text-gray-500 text-xs">
+              of total
+            </span>
           </div>
         </div>
       </div>
 
       {/* Insight */}
-      <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-        <div className="flex items-start gap-2">
-          <span className="text-blue-400 text-sm">💡</span>
-          <p className="text-xs text-gray-300">
-            {fixed > variable ? (
-              <>
-                Your fixed expenses are <span className="text-white font-semibold">{((fixed / variable - 1) * 100).toFixed(0)}% higher</span> than variable. Consider reviewing subscriptions.
-              </>
-            ) : (
-              <>
-                Your variable expenses are <span className="text-white font-semibold">{((variable / fixed - 1) * 100).toFixed(0)}% higher</span>. Track daily spending to optimize.
-              </>
-            )}
-          </p>
+      {total > 0 && (
+        <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+          <div className="flex items-start gap-2">
+            <span className="text-blue-400 text-sm">💡</span>
+            <p className="text-xs text-gray-300">
+              {fixed > variable ? (
+                <>
+                  Your fixed expenses are{" "}
+                  <span className="text-white font-semibold">
+                    {((fixed / variable - 1) * 100).toFixed(0)}%
+                  </span>{" "}
+                  higher than variable. Consider reviewing
+                  subscriptions.
+                </>
+              ) : (
+                <>
+                  Your variable expenses are{" "}
+                  <span className="text-white font-semibold">
+                    {((variable / fixed - 1) * 100).toFixed(0)}%
+                  </span>{" "}
+                  higher. Track daily spending to optimize.
+                </>
+              )}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </motion.div>
   );
 }
