@@ -69,11 +69,11 @@ export interface DashboardSummary {
     total: number;
   }[];
 
-  // goals: {
-  //   id: string;
-  //   name: string;
-  //   targetAmount: number;
-  //   currentAmount: number;
-  //   progress: number;
-  // }[];
+  goals: {
+    id: string;
+    name: string;
+    targetAmount: number;
+    currentAmount: number;
+    progress: number;
+  }[];
 }
