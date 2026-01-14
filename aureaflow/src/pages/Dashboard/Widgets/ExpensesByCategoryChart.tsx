@@ -1,4 +1,13 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, CartesianGrid} from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  CartesianGrid,
+} from "recharts";
 import { motion } from "framer-motion";
 import { DollarSign } from "lucide-react";
 import { useState } from "react";
@@ -7,7 +16,6 @@ type CategoryData = {
   category: string;
   total: number;
 };
-
 
 const CATEGORY_COLORS: Record<string, string> = {
   Food: "#f59e0b",
@@ -19,17 +27,24 @@ const CATEGORY_COLORS: Record<string, string> = {
   Other: "#6b7280",
 };
 
-export default function ExpensesByCategoryChart({ data }: { data: CategoryData[] }) {
+export default function ExpensesByCategoryChart({
+  data,
+}: {
+  data: CategoryData[];
+}) {
   const [hoveredBar, setHoveredBar] = useState<string | null>(null);
 
+  // Empty state
   if (!data || data.length === 0) {
     return (
-      <div className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10">
+      <div className="rounded-xl bg-gradient-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 col-span-1 md:col-span-2">
         <p className="text-sm text-gray-400 mb-2">Expenses by Category</p>
         <div className="flex flex-col items-center justify-center h-64 text-center">
           <DollarSign className="w-12 h-12 text-gray-600 mb-3" />
           <p className="text-gray-500 text-sm">No expenses recorded yet</p>
-          <p className="text-gray-600 text-xs mt-1">Start tracking to see insights</p>
+          <p className="text-gray-600 text-xs mt-1">
+            Start tracking to see insights
+          </p>
         </div>
       </div>
     );
@@ -76,7 +91,7 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
     );
   };
 
-  // Custom Bar Shape (opcional, para efecto hover)
+  // Custom Bar Shape
   const CustomBar = (props: any) => {
     const { fill, x, y, width, height, payload } = props;
     const isHovered = hoveredBar === payload.category;
@@ -111,7 +126,7 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
-      className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-2"
+      className="rounded-xl bg-gradient-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-1 md:col-span-2"
     >
       {/* Header con stats */}
       <div className="flex items-start justify-between mb-6">
@@ -143,11 +158,18 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
         </div>
       </div>
 
-      {/* Chart */}
-      <div className="h-72 w-full">
+      {/* Chart - LA CLAVE ESTÁ AQUÍ */}
+      <div className="w-full" style={{ height: "288px" }}>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={sortedData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" vertical={false} />
+          <BarChart
+            data={sortedData}
+            margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#2a2a2a"
+              vertical={false}
+            />
             <XAxis
               dataKey="category"
               stroke="#6b7280"
@@ -158,9 +180,12 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
               stroke="#6b7280"
               tick={{ fontSize: 12, fill: "#9ca3af" }}
               axisLine={{ stroke: "#2a2a2a" }}
-              tickFormatter={(value) => `$${value / 1000}k`}
+              tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.05)" }} />
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{ fill: "rgba(255,255,255,0.05)" }}
+            />
             <Bar
               dataKey="total"
               radius={[8, 8, 0, 0]}
@@ -179,7 +204,7 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
       </div>
 
       {/* Category Legend */}
-      <div className="mt-6 grid grid-cols-3 md:grid-cols-4 gap-3">
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
         {sortedData.slice(0, 4).map((item) => {
           const percentage = ((item.total / totalExpenses) * 100).toFixed(0);
           return (
@@ -191,10 +216,13 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
                 <div
                   className="w-2 h-2 rounded-full"
                   style={{
-                    backgroundColor: CATEGORY_COLORS[item.category] || "#6b7280",
+                    backgroundColor:
+                      CATEGORY_COLORS[item.category] || "#6b7280",
                   }}
                 ></div>
-                <span className="text-xs text-gray-400 truncate">{item.category}</span>
+                <span className="text-xs text-gray-400 truncate">
+                  {item.category}
+                </span>
               </div>
               <p className="text-white font-semibold text-sm">
                 ${item.total.toLocaleString()}
@@ -210,7 +238,10 @@ export default function ExpensesByCategoryChart({ data }: { data: CategoryData[]
         <div className="flex items-start gap-2">
           <span className="text-purple-400 text-sm">📊</span>
           <p className="text-xs text-gray-300">
-            <span className="text-white font-semibold">{topCategory.category}</span> represents{" "}
+            <span className="text-white font-semibold">
+              {topCategory.category}
+            </span>{" "}
+            represents{" "}
             <span className="text-white font-semibold">
               {((topCategory.total / totalExpenses) * 100).toFixed(0)}%
             </span>{" "}

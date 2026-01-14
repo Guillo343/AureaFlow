@@ -56,7 +56,7 @@ export default function DashboardHome() {
       </div>
     );
   }
-  // Error State 
+  // Error State
   if (!summary) {
     return (
       <div className="text-center py-20 text-gray-400">
@@ -65,7 +65,7 @@ export default function DashboardHome() {
     );
   }
   //#endregion
-  //#region Ready State 
+  //#region Ready State
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -111,9 +111,7 @@ export default function DashboardHome() {
           variable={summary.expenses.variable}
         />
 
-        <ExpensesByCategoryChart
-          data={summary.expenses.byCategory}
-        />
+        <ExpensesByCategoryChart data={summary.expenses.byCategory} />
 
         {/* Trend */}
         <div className="col-span-1 md:col-span-3">

@@ -1,4 +1,4 @@
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,} from "recharts";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid} from "recharts";
 import { motion } from "framer-motion";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
@@ -14,16 +14,21 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
   const previousMonth = data[data.length - 2];
   const trend =
     currentMonth && previousMonth
-      ? ((currentMonth.expenses - previousMonth.expenses) / previousMonth.expenses) * 100 : 0;
+      ? ((currentMonth.expenses - previousMonth.expenses) /
+          previousMonth.expenses) *
+        100
+      : 0;
 
-  const isPositiveTrend = trend <= 0; // Menos gastos = positivo
+  const isPositiveTrend = trend <= 0; 
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (!active || !payload) return null;
 
     return (
       <div className="bg-[#1a1a1a] border border-white/20 rounded-lg p-3 shadow-xl">
-        <p className="text-gray-400 text-xs mb-2">{payload[0]?.payload?.date}</p>
+        <p className="text-gray-400 text-xs mb-2">
+          {payload[0]?.payload?.date}
+        </p>
         <div className="space-y-1">
           <div className="flex items-center justify-between gap-4">
             <span className="text-green-400 text-xs">Income:</span>
@@ -45,8 +50,9 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
                   payload[0]?.value - payload[1]?.value >= 0
                     ? "text-green-400"
                     : "text-red-400"
-                }`}>
-                    ${(payload[0]?.value - payload[1]?.value).toLocaleString()}
+                }`}
+              >
+                ${(payload[0]?.value - payload[1]?.value).toLocaleString()}
               </span>
             </div>
           </div>
@@ -60,7 +66,8 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-3">
+      className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-3"
+    >
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
@@ -74,7 +81,8 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
             isPositiveTrend
               ? "bg-green-500/20 border border-green-500/30"
               : "bg-red-500/20 border border-red-500/30"
-          }`}>
+          }`}
+        >
           {isPositiveTrend ? (
             <TrendingDown className="w-4 h-4 text-green-400" />
           ) : (
@@ -83,7 +91,8 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
           <span
             className={`text-sm font-semibold ${
               isPositiveTrend ? "text-green-400" : "text-red-400"
-            }`}>
+            }`}
+          >
             {Math.abs(trend).toFixed(1)}%
           </span>
         </div>
@@ -92,7 +101,10 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
       {/* Chart */}
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <AreaChart
+            data={data}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
             <defs>
               <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
@@ -104,17 +116,23 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" vertical={false} />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#2a2a2a"
+              vertical={false}
+            />
             <XAxis
               dataKey="date"
               stroke="#6b7280"
               tick={{ fontSize: 12, fill: "#9ca3af" }}
-              axisLine={{ stroke: "#2a2a2a" }}/>
+              axisLine={{ stroke: "#2a2a2a" }}
+            />
             <YAxis
               stroke="#6b7280"
               tick={{ fontSize: 12, fill: "#9ca3af" }}
               axisLine={{ stroke: "#2a2a2a" }}
-              tickFormatter={(value) => `$${value / 1000}k`}/>
+              tickFormatter={(value) => `$${value / 1000}k`}
+            />
             <Tooltip content={<CustomTooltip />} />
 
             <Area
@@ -123,14 +141,16 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
               stroke="#10b981"
               strokeWidth={2}
               fill="url(#incomeGradient)"
-              animationDuration={1000}/>
+              animationDuration={1000}
+            />
             <Area
               type="monotone"
               dataKey="expenses"
               stroke="#ef4444"
               strokeWidth={2}
               fill="url(#expenseGradient)"
-              animationDuration={1000}/>
+              animationDuration={1000}
+            />
           </AreaChart>
         </ResponsiveContainer>
       </div>
