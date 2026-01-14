@@ -39,7 +39,7 @@ export default function DashboardHome() {
     };
   }, []);
 
-  /* ---------------------------- Loading State ---------------------------- */
+  // #region Loading State
 
   if (loading) {
     return (
@@ -56,7 +56,7 @@ export default function DashboardHome() {
       </div>
     );
   }
-  /* ----------------------------- Error State ----------------------------- */
+  // Error State 
   if (!summary) {
     return (
       <div className="text-center py-20 text-gray-400">
@@ -64,7 +64,8 @@ export default function DashboardHome() {
       </div>
     );
   }
-  /* ----------------------------- Ready State ----------------------------- */
+  //#endregion
+  //#region Ready State 
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -127,3 +128,4 @@ export default function DashboardHome() {
     </motion.div>
   );
 }
+//#endregion

@@ -14,8 +14,7 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
   const previousMonth = data[data.length - 2];
   const trend =
     currentMonth && previousMonth
-      ? ((currentMonth.expenses - previousMonth.expenses) / previousMonth.expenses) * 100
-      : 0;
+      ? ((currentMonth.expenses - previousMonth.expenses) / previousMonth.expenses) * 100 : 0;
 
   const isPositiveTrend = trend <= 0; // Menos gastos = positivo
 
@@ -46,9 +45,8 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
                   payload[0]?.value - payload[1]?.value >= 0
                     ? "text-green-400"
                     : "text-red-400"
-                }`}
-              >
-                ${(payload[0]?.value - payload[1]?.value).toLocaleString()}
+                }`}>
+                    ${(payload[0]?.value - payload[1]?.value).toLocaleString()}
               </span>
             </div>
           </div>
@@ -62,8 +60,7 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-3"
-    >
+      className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-3">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
@@ -77,8 +74,7 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
             isPositiveTrend
               ? "bg-green-500/20 border border-green-500/30"
               : "bg-red-500/20 border border-red-500/30"
-          }`}
-        >
+          }`}>
           {isPositiveTrend ? (
             <TrendingDown className="w-4 h-4 text-green-400" />
           ) : (
@@ -87,8 +83,7 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
           <span
             className={`text-sm font-semibold ${
               isPositiveTrend ? "text-green-400" : "text-red-400"
-            }`}
-          >
+            }`}>
             {Math.abs(trend).toFixed(1)}%
           </span>
         </div>
@@ -114,14 +109,12 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
               dataKey="date"
               stroke="#6b7280"
               tick={{ fontSize: 12, fill: "#9ca3af" }}
-              axisLine={{ stroke: "#2a2a2a" }}
-            />
+              axisLine={{ stroke: "#2a2a2a" }}/>
             <YAxis
               stroke="#6b7280"
               tick={{ fontSize: 12, fill: "#9ca3af" }}
               axisLine={{ stroke: "#2a2a2a" }}
-              tickFormatter={(value) => `$${value / 1000}k`}
-            />
+              tickFormatter={(value) => `$${value / 1000}k`}/>
             <Tooltip content={<CustomTooltip />} />
 
             <Area
@@ -130,16 +123,14 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
               stroke="#10b981"
               strokeWidth={2}
               fill="url(#incomeGradient)"
-              animationDuration={1000}
-            />
+              animationDuration={1000}/>
             <Area
               type="monotone"
               dataKey="expenses"
               stroke="#ef4444"
               strokeWidth={2}
               fill="url(#expenseGradient)"
-              animationDuration={1000}
-            />
+              animationDuration={1000}/>
           </AreaChart>
         </ResponsiveContainer>
       </div>
