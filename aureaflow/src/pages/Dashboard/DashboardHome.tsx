@@ -71,7 +71,7 @@ export default function DashboardHome() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="space-y-6"
+      className="space-y-6 p-4 md:p-6 min-h-screen"
     >
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function DashboardHome() {
       </div>
 
       {/* Dashboard Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto">
         {/* KPIs */}
         <IncomeWidget total={summary.incomes.total} />
 
@@ -106,13 +106,15 @@ export default function DashboardHome() {
         <SavingsWidget savings={summary.totals.balance} />
 
         {/* Charts */}
-        <ExpensesBreakdownChart
-          fixed={summary.expenses.fixed}
-          variable={summary.expenses.variable}
-        />
-
-        <ExpensesByCategoryChart data={summary.expenses.byCategory} />
-
+        <div className="col-span-1">
+          <ExpensesBreakdownChart
+            fixed={summary.expenses.fixed}
+            variable={summary.expenses.variable}
+          />
+        </div>
+        <div className="col-span-1 md:col-span-2">
+          <ExpensesByCategoryChart data={summary.expenses.byCategory} />
+        </div>
         {/* Trend */}
         <div className="col-span-1 md:col-span-3">
           <ExpenseTrendChart data={summary.trendData ?? []} />

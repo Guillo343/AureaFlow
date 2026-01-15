@@ -1,6 +1,7 @@
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid} from "recharts";
 import { motion } from "framer-motion";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 type TrendData = {
   date: string;
@@ -9,15 +10,40 @@ type TrendData = {
 };
 
 export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Measure container dimensions after mount
+  useEffect(() => {
+    if (containerRef.current) {
+      const { width, height } = containerRef.current.getBoundingClientRect();
+      setDimensions({ width, height });
+    }
+  }, [data]);
+
+  // Empty state
+  if (!data || data.length === 0) {
+    return (
+      <div className="rounded-xl bg-gradient-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10">
+        <p className="text-sm text-gray-400 mb-2">Income vs Expenses Trend</p>
+        <div className="flex flex-col items-center justify-center h-64 text-center">
+          <TrendingUp className="w-12 h-12 text-gray-600 mb-3" />
+          <p className="text-gray-500 text-sm">No trend data available</p>
+          <p className="text-gray-600 text-xs mt-1">
+            Data will appear as you track expenses
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   // Calcular tendencia
   const currentMonth = data[data.length - 1];
   const previousMonth = data[data.length - 2];
   const trend =
     currentMonth && previousMonth
       ? ((currentMonth.expenses - previousMonth.expenses) /
-          previousMonth.expenses) *
-        100
-      : 0;
+          previousMonth.expenses) * 100: 0;
 
   const isPositiveTrend = trend <= 0; 
 
@@ -50,8 +76,7 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
                   payload[0]?.value - payload[1]?.value >= 0
                     ? "text-green-400"
                     : "text-red-400"
-                }`}
-              >
+                }`}>
                 ${(payload[0]?.value - payload[1]?.value).toLocaleString()}
               </span>
             </div>
@@ -66,7 +91,7 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="rounded-xl bg-linear-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl col-span-3"
+      className="rounded-xl bg-gradient-to-br from-[#151515] to-[#1a1a1a] p-6 border border-white/10 shadow-2xl"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
@@ -76,83 +101,103 @@ export default function ExpenseTrendChart({ data }: { data: TrendData[] }) {
         </div>
 
         {/* Trend Badge */}
-        <div
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg ${
-            isPositiveTrend
-              ? "bg-green-500/20 border border-green-500/30"
-              : "bg-red-500/20 border border-red-500/30"
-          }`}
-        >
-          {isPositiveTrend ? (
-            <TrendingDown className="w-4 h-4 text-green-400" />
-          ) : (
-            <TrendingUp className="w-4 h-4 text-red-400" />
-          )}
-          <span
-            className={`text-sm font-semibold ${
-              isPositiveTrend ? "text-green-400" : "text-red-400"
+        {data.length > 1 && (
+          <div
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg ${
+              isPositiveTrend
+                ? "bg-green-500/20 border border-green-500/30"
+                : "bg-red-500/20 border border-red-500/30"
             }`}
           >
-            {Math.abs(trend).toFixed(1)}%
-          </span>
-        </div>
+            {isPositiveTrend ? (
+              <TrendingDown className="w-4 h-4 text-green-400" />
+            ) : (
+              <TrendingUp className="w-4 h-4 text-red-400" />
+            )}
+            <span
+              className={`text-sm font-semibold ${
+                isPositiveTrend ? "text-green-400" : "text-red-400"
+              }`}
+            >
+              {Math.abs(trend).toFixed(1)}%
+            </span>
+          </div>
+        )}
       </div>
 
-      {/* Chart */}
-      <div className="h-72 w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={data}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <defs>
-              <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
-              </linearGradient>
-            </defs>
+      {/* Chart Container */}
+      <div 
+        ref={containerRef}
+        className="w-full" 
+        style={{ height: 288, minHeight: 288 }}
+      >
+        {dimensions.width > 0 ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              data={data}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
+              <defs>
+                <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient
+                  id="expenseGradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                </linearGradient>
+              </defs>
 
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#2a2a2a"
-              vertical={false}
-            />
-            <XAxis
-              dataKey="date"
-              stroke="#6b7280"
-              tick={{ fontSize: 12, fill: "#9ca3af" }}
-              axisLine={{ stroke: "#2a2a2a" }}
-            />
-            <YAxis
-              stroke="#6b7280"
-              tick={{ fontSize: 12, fill: "#9ca3af" }}
-              axisLine={{ stroke: "#2a2a2a" }}
-              tickFormatter={(value) => `$${value / 1000}k`}
-            />
-            <Tooltip content={<CustomTooltip />} />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#2a2a2a"
+                vertical={false}
+              />
+              <XAxis
+                dataKey="date"
+                stroke="#6b7280"
+                tick={{ fontSize: 12, fill: "#9ca3af" }}
+                axisLine={{ stroke: "#2a2a2a" }}
+              />
+              <YAxis
+                stroke="#6b7280"
+                tick={{ fontSize: 12, fill: "#9ca3af" }}
+                axisLine={{ stroke: "#2a2a2a" }}
+                tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
+              />
+              <Tooltip content={<CustomTooltip />} />
 
-            <Area
-              type="monotone"
-              dataKey="income"
-              stroke="#10b981"
-              strokeWidth={2}
-              fill="url(#incomeGradient)"
-              animationDuration={1000}
-            />
-            <Area
-              type="monotone"
-              dataKey="expenses"
-              stroke="#ef4444"
-              strokeWidth={2}
-              fill="url(#expenseGradient)"
-              animationDuration={1000}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+              <Area
+                type="monotone"
+                dataKey="income"
+                stroke="#10b981"
+                strokeWidth={2}
+                fill="url(#incomeGradient)"
+                animationDuration={1000}
+              />
+              <Area
+                type="monotone"
+                dataKey="expenses"
+                stroke="#ef4444"
+                strokeWidth={2}
+                fill="url(#expenseGradient)"
+                animationDuration={1000}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="animate-pulse text-gray-500 text-sm">
+              Loading chart...
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Legend */}
