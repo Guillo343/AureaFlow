@@ -50,13 +50,13 @@ export interface DashboardGoals {
   currentAmount: number;
   progress: number; // 0 - 100
 }
-/* ----------------------------- Trend Chart ---------------------------- */
+/* Trend Chart */
 export interface DashboardTrendPoint {
   date: string;
   income: number;
   expenses: number;
 }
-/* -------------------------- Raw Summary (DTO) -------------------------- */
+/* Raw Summary (DTO) */
 export interface DashboardSummary {
   totalIncome: number;
   totalExpenses: number;
