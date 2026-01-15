@@ -10,7 +10,7 @@ export interface DashboardData {
   goals: DashboardGoals[];
   trendData?: DashboardTrendPoint[]; 
 }
-/* ----------------------------- Sub Models ----------------------------- */
+/* Sub Models */
 export interface DashboardUser {
   id: string;
   name: string;
