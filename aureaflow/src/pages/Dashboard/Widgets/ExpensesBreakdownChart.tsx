@@ -1,4 +1,11 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Label } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  Label,
+} from "recharts";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -16,7 +23,9 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
   const hasData = total > 0;
 
   const fixedPercentage = hasData ? ((fixed / total) * 100).toFixed(1) : "0";
-  const variablePercentage = hasData ? ((variable / total) * 100).toFixed(1) : "0";
+  const variablePercentage = hasData
+    ? ((variable / total) * 100).toFixed(1)
+    : "0";
 
   const data = [
     { name: "Fixed", value: fixed, color: COLORS.fixed },
@@ -39,10 +48,9 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
     );
   };
 
-  // Custom Label Component (the correct way for Recharts)
   const renderCenterLabel = ({ viewBox }: any) => {
     const { cx, cy } = viewBox;
-    
+
     return (
       <g>
         <text
@@ -70,11 +78,11 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
   // Calculate insight message
   const getInsightMessage = () => {
     if (!hasData) return null;
-    
+
     if (fixed === 0) {
       return "You have no fixed expenses. Consider tracking recurring bills.";
     }
-    
+
     if (variable === 0) {
       return "You have no variable expenses tracked this period.";
     }
@@ -93,8 +101,8 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
       return (
         <>
           Your variable expenses are{" "}
-          <span className="text-white font-semibold">{diff}% higher</span>. Track
-          daily spending to optimize.
+          <span className="text-white font-semibold">{diff}% higher</span>.
+          Track daily spending to optimize.
         </>
       );
     }
@@ -144,7 +152,6 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
                     }}
                   />
                 ))}
-                {/* This is the CORRECT way to add center label in Recharts */}
                 <Label content={renderCenterLabel} position="center" />
               </Pie>
               <Tooltip content={<CustomTooltip />} />
@@ -170,7 +177,9 @@ export default function ExpensesBreakdownChart({ fixed, variable }: Props) {
               </svg>
             </div>
             <p className="text-gray-500 text-sm">No expenses recorded</p>
-            <p className="text-gray-600 text-xs mt-1">Start tracking to see breakdown</p>
+            <p className="text-gray-600 text-xs mt-1">
+              Start tracking to see breakdown
+            </p>
           </div>
         </div>
       )}
