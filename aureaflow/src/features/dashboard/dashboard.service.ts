@@ -68,18 +68,15 @@ export async function getDashboardData(): Promise<DashboardData> {
       targetAmount: Number(g.target_amount),
       progress:
         g.target_amount > 0
-          ? Math.round((g.current_amount / g.target_amount) * 100)
-          : 0,
+          ? Math.round((g.current_amount / g.target_amount) * 100): 0,
     })) ?? [];
 
   const savings = {
     current: totalIncome - totalExpenses,
     target: goals.reduce((sum, g) => sum + g.targetAmount, 0) || 0,
-    progress:
-      totalIncome > 0
+    progress: totalIncome > 0
         ? Math.round(((totalIncome - totalExpenses) / totalIncome) * 100)
-        : 0,
-  };
+        : 0,};
 
   return {
     user: {
